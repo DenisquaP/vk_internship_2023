@@ -1,17 +1,30 @@
 version: '3.9'
+
 services:
-  # db:
-  #   image: postgres
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
-  #   ports:
-  #     - '5432:5432'
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_vk:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - vk
   web:
+    depends_on:
+      - postgres
     build: .
     ports:
       - "8000:8000"
-    volumes:
-      - .:/code
-    command: python vk_internship/manage.py runserver 0.0.0.0:8000
+    networks:
+      - vk
+
+networks:
+  vk:
+
+volumes:
+  postgres_vk:

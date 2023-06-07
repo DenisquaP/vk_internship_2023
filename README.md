@@ -21,15 +21,17 @@ python manage.py runserver
 
 Для Linux 
 ```
-sudo docker compose -f docker-compose.yaml up -d
+sudo docker compose -f up -d --build
+sudo docker exec vk_internship_2023-web-1 python3 manage.py migrate
 ```
 Для Windows 
 ```
-docker compose -f docker-compose.yaml up -d
+docker-compose -f up -d --build
+docker exec vk_internship_2023-web-1 python manage.py migrate
 ```
 # Endpoints
 
-| Endpoint                     | Что делает                                   |
+| Endpoint                     | Description                                   |
 |--------------------------|----------------------------------------------|
 | __GET__ users/                         | Получить список пользователей|
 | __POST__ users/                         | Создать пользователя | 
